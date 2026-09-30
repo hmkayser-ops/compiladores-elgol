@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+parsetab.py
+parser.out
+.venv/
+venv/
+.DS_Store
+~$*.docx

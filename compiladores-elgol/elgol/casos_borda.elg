@@ -1,0 +1,42 @@
+* Bateria de casos do enunciado
+* Identificadores validos
+inicio .
+  DECIMAL Teste .
+  DECIMAL PEsar .
+  DECIMAL Lixo .
+
+* Identificadores invalidos
+  teste = 1 .
+  teste2 = 1 .
+  Teste39 = 1 .
+  Tes_Te = 1 .
+  Xyz = 1 .
+  Bh = 1 .
+  Lxt = 1 .
+  LetrA = 1 .
+  Ateras = 1 .
+
+* Numeros
+  Teste = 200 .
+  Teste = 034 .
+  Teste = 0 .
+  Teste = 12abc .
+
+* Nomes de funcao
+  Teste = $Teste () .
+  Teste = $teste () .
+  Teste = $Te34 () .
+  Teste = $Te () .
+
+* Reservada que parece identificador
+  se Teste MIgual Lixo .
+  se Teste migual Lixo .
+
+* Operadores
+  Teste = 3 x 4 .
+  Teste = 9 / 3 .
+  Teste = 9 - 3 EXP 2 RESTO 4 .
+
+* Caractere fora do alfabeto
+  Teste = Lixo @ 2 .
+fim .
