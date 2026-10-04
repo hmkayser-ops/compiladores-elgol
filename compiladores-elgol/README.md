@@ -31,7 +31,10 @@ cd elgol
 python lexico_elgol.py exemplo_professor.elg     # lista os tokens
 python lexico_elgol.py casos_borda.elg           # bateria de testes
 python lexico_elgol.py arquivo.elg --resumo      # só a contagem
+python test_simbolos.py                          # confere a tabela de símbolos
 ```
+
+Depois da lista de tokens, o programa imprime a tabela de símbolos: cada identificador e nome de função aparece uma vez, com as linhas em que ocorre.
 
 O programa sai com código 1 quando encontra erro léxico e 0 quando o arquivo passa limpo.
 
