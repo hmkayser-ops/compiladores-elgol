@@ -22,6 +22,9 @@ docs/     artigo (PDF e DOCX)
 
 ## Como rodar
 
+O passo a passo separado está no [Guia de instalação](INSTALACAO.md),
+com instruções para Windows, Debian 13 e Ubuntu.
+
 Precisa de Git, Python 3.8 ou mais novo e acesso à internet para instalar
 `ply==3.11`, a única dependência. Salve os programas Elgol em UTF-8.
 
