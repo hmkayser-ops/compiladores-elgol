@@ -1,0 +1,33 @@
+* Teste 1: Sistema de verificacao de aprovacao de aluno
+* Palavras reservadas: elgio, DECIMAL, _Z_, se, entao, senao, MIgual, inicio, fim
+* Operadores: =, +, /, ., ,, (, ), $
+
+DECIMAL $Media (DECIMAL NotaUm, DECIMAL NotaDois) .
+inicio .
+    DECIMAL Soma .
+    Soma = NotaUm + NotaDois .
+    elgio = Soma / 2 .
+fim .
+
+inicio .
+    DECIMAL NotaUm .
+    DECIMAL NotaDois .
+    DECIMAL Resultado .
+    DECIMAL Meta .
+
+    NotaUm = 5 .
+    NotaDois = 7 .
+    Meta = 6 .
+
+    Resultado = $Media (NotaUm, NotaDois) .
+
+    se Resultado MIgual Meta .
+    entao .
+    inicio .
+        Resultado = 1 .
+    fim .
+    senao .
+    inicio .
+        Resultado = _Z_ .
+    fim .
+fim .
