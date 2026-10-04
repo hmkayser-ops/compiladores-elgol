@@ -50,24 +50,55 @@ Se você já clonou o repositório, comece nessa subpasta. Usamos diretamente
 o Python do ambiente virtual, sem precisar ativá-lo ou alterar a política
 de execução do PowerShell.
 
-### Linux (terminal)
+### Linux — Debian 13 e Ubuntu (terminal Bash)
 
-Em Debian/Ubuntu, instale os pré-requisitos com:
+No Debian 13 (Trixie) e no Ubuntu, use o Python 3 fornecido pela própria
+distribuição. Instale os pré-requisitos com uma conta que tenha acesso
+ao `sudo`:
 
 ```bash
 sudo apt update
-sudo apt install git python3 python3-venv python3-pip
+sudo apt install git python3 python3-venv python3-pip ca-certificates
 ```
 
-Em outras distribuições, instale os pacotes equivalentes pelo gerenciador
-de pacotes. Depois:
+No Debian, se `sudo` não estiver instalado ou seu usuário não tiver
+permissão, entre como administrador com `su -` e execute os dois comandos
+`apt` acima sem `sudo`. Depois execute `exit` para voltar ao seu usuário
+normal antes de clonar o projeto e criar o ambiente virtual.
+
+Em um diretório onde seu usuário possa criar arquivos, baixe a branch de
+André e instale a dependência:
 
 ```bash
-git clone https://github.com/hmkayser-ops/compiladores-elgol.git
+git clone --branch andreberger --single-branch https://github.com/hmkayser-ops/compiladores-elgol.git
 cd compiladores-elgol/compiladores-elgol
 python3 --version
 python3 -m venv .venv
 ./.venv/bin/python -m pip install -r requirements.txt
+./.venv/bin/python -m pip check
+```
+
+Se você já clonou o repositório, entre na raiz do clone e execute
+`git fetch origin andreberger`, `git switch andreberger` e depois
+`cd compiladores-elgol`. Não é preciso clonar novamente.
+
+Para confirmar uma instalação sem erros, crie e execute o exemplo mínimo:
+
+```bash
+cat > instalacao.elg <<'EOF'
+inicio .
+  DECIMAL Teste .
+  Teste = _Z_ .
+fim .
+EOF
+./.venv/bin/python elgol/lexico_elgol.py instalacao.elg --resumo
+echo $?
+```
+
+A saída esperada é `Tokens reconhecidos: 11`, `Erros lexicos: 0` e código
+de saída `0`. Para executar os arquivos com erros intencionais:
+
+```bash
 ./.venv/bin/python elgol/lexico_elgol.py elgol/exemplo_professor.elg
 echo $?
 ./.venv/bin/python elgol/lexico_elgol.py elgol/casos_borda.elg --resumo
@@ -76,7 +107,18 @@ echo $?
 
 Não reutilize a pasta `.venv` do Windows no Linux: crie um ambiente em
 cada sistema. Se a criação do ambiente reclamar de `ensurepip`, confira
-se o pacote `python3-venv` da sua versão do Python está instalado.
+se o pacote `python3-venv` da sua versão do Python está instalado. Use
+`python3`, sem fixar uma versão como `python3.13`, para acompanhar a versão
+padrão de cada distribuição.
+
+As versões atuais de Debian e Ubuntu protegem o Python do sistema e
+podem mostrar `externally-managed-environment` ao usar `pip` fora de um
+ambiente virtual. Use sempre `./.venv/bin/python -m pip` como no roteiro.
+A instalação de PLY não precisa de `sudo`, ativação do ambiente ou
+`--break-system-packages`.
+
+Referências dos pré-requisitos: [python3-venv no Debian 13](https://packages.debian.org/trixie/python3-venv)
+e [ambiente Python no Ubuntu](https://documentation.ubuntu.com/ubuntu-for-developers/howto/python-setup/).
 
 ### Conferir a instalação
 
@@ -148,9 +190,10 @@ verificada com Python 3.13.12 e PLY 3.11. O exemplo mínimo acima gerou
 gerou 1 erro e `casos_borda.elg`, 16 erros; ambos retornaram código 1,
 conforme esperado. Os comandos do TR4 também foram executados.
 
-A execução em Linux ainda está pendente: o ambiente usado para esta
-revisão não possui Linux/WSL instalado. Os comandos Linux acima precisam
-ser confirmados em uma máquina Linux antes de encerrar a entrega.
+A execução em Debian 13 e Ubuntu ainda está pendente: o ambiente usado
+para esta revisão não possui Linux/WSL instalado. O roteiro foi ajustado
+com base na documentação das distribuições, mas precisa ser executado
+em ambas antes de encerrar a entrega.
 
 ## Decisões da Etapa 1
 
