@@ -1,0 +1,34 @@
+* Teste 2: Sistema de desconto em compras
+* Palavras reservadas: elgio, DECIMAL, EXP, RESTO, se, entao, senao, menor, maior, inicio, fim, x
+* Operadores: =, /, ., (, ), $
+
+DECIMAL $Desconto (DECIMAL Valor) .
+inicio .
+    DECIMAL Fator .
+    Fator = 3 EXP 2 .
+    elgio = (Valor x Fator) / 10 .  * 10% de desconto
+fim .
+
+inicio .
+    DECIMAL ValorCompra .
+    DECIMAL Limite .
+    DECIMAL Sobra .
+
+    ValorCompra = 130 .
+    Limite = 100 .
+    Sobra = ValorCompra RESTO 10 .
+
+    se Limite menor ValorCompra .
+    entao .
+    inicio .
+        se ValorCompra maior Limite .
+        entao .
+        inicio .
+            ValorCompra = $Desconto (ValorCompra) .
+        fim .
+    fim .
+    senao .
+    inicio .
+        ValorCompra = ValorCompra .
+    fim .
+fim .

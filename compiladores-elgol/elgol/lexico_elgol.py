@@ -214,6 +214,29 @@ def t_error(t):
 lexer = lex.lex()
 
 
+def monta_tabela(tokens):
+    tabela = {}
+    for tok in tokens:
+        if tok.type in ('ID', 'FUNCAO'):
+            entrada = tabela.setdefault(tok.value,
+                                        {'token': tok.type, 'linhas': []})
+            if tok.lineno not in entrada['linhas']:
+                entrada['linhas'].append(tok.lineno)
+    return tabela
+
+
+def imprime_tabela(tabela):
+    print()
+    print("TABELA DE SIMBOLOS")
+    print("%-4s %-16s %-8s %s" % ("#", "LEXEMA", "TOKEN", "LINHAS"))
+    print("-" * 58)
+    for i, (lexema, e) in enumerate(tabela.items(), 1):
+        print("%-4d %-16s %-8s %s"
+              % (i, lexema, e['token'], ', '.join(map(str, e['linhas']))))
+    print("-" * 58)
+    print("Simbolos: %d" % len(tabela))
+
+
 # ===============================================================
 # Programa principal
 # ===============================================================
@@ -229,21 +252,23 @@ def analisa(caminho, resumo=False):
         print("%-6s %-12s %-16s %s" % ("LINHA", "COL", "TOKEN", "LEXEMA"))
         print("-" * 58)
 
-    total = 0
+    lidos = []
     contagem = {}
     for tok in lexer:
-        total += 1
+        lidos.append(tok)
         contagem[tok.type] = contagem.get(tok.type, 0) + 1
         if not resumo:
             print("%-6d %-12d %-16s %s"
                   % (tok.lineno, coluna(dados, tok), tok.type, repr(tok.value)))
 
     print("-" * 58)
-    print("Tokens reconhecidos: %d" % total)
+    print("Tokens reconhecidos: %d" % len(lidos))
     print("Erros lexicos: %d" % erros['lexicos'])
     if resumo:
         for tipo in sorted(contagem):
             print("  %-16s %d" % (tipo, contagem[tipo]))
+    else:
+        imprime_tabela(monta_tabela(lidos))
     return erros['lexicos']
 
 

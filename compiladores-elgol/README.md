@@ -69,21 +69,17 @@ permissão, entre como administrador com `su -` e execute os dois comandos
 `apt` acima sem `sudo`. Depois execute `exit` para voltar ao seu usuário
 normal antes de clonar o projeto e criar o ambiente virtual.
 
-Em um diretório onde seu usuário possa criar arquivos, baixe a branch de
-André e instale a dependência:
+Em um diretório onde seu usuário possa criar arquivos, baixe o projeto
+e instale a dependência:
 
 ```bash
-git clone --branch andreberger --single-branch https://github.com/hmkayser-ops/compiladores-elgol.git
+git clone https://github.com/hmkayser-ops/compiladores-elgol.git
 cd compiladores-elgol/compiladores-elgol
 python3 --version
 python3 -m venv .venv
 ./.venv/bin/python -m pip install -r requirements.txt
 ./.venv/bin/python -m pip check
 ```
-
-Se você já clonou o repositório, entre na raiz do clone e execute
-`git fetch origin andreberger`, `git switch andreberger` e depois
-`cd compiladores-elgol`. Não é preciso clonar novamente.
 
 Para confirmar uma instalação sem erros, crie e execute o exemplo mínimo:
 
@@ -161,6 +157,23 @@ analisador. `--resumo` mostra a contagem por tipo de token; sem essa opção,
 o programa lista os tokens com linha e coluna. Substitua `instalacao.elg`
 pelo caminho do seu programa, entre aspas se contiver espaços.
 
+### Tabela de símbolos
+
+Sem `--resumo`, depois da lista de tokens o programa imprime a tabela de
+símbolos: cada identificador e nome de função aparece uma vez, com as linhas
+em que ocorre. Para conferir a tabela no exemplo do professor:
+
+```powershell
+.\.venv\Scripts\python.exe elgol\test_simbolos.py
+```
+
+```bash
+./.venv/bin/python elgol/test_simbolos.py
+```
+
+A mensagem de erro do `Vim` aparece antes e é esperada. O teste passou se a
+última linha for `ok`.
+
 ### TR4
 
 Ainda na pasta que contém `requirements.txt`, execute no Windows:
@@ -193,10 +206,11 @@ verificada com Python 3.13.12 e PLY 3.11. O exemplo mínimo acima gerou
 gerou 1 erro e `casos_borda.elg`, 16 erros; ambos retornaram código 1,
 conforme esperado. Os comandos do TR4 também foram executados.
 
-A execução em Debian 13 e Ubuntu ainda está pendente: o ambiente usado
-para esta revisão não possui Linux/WSL instalado. O roteiro foi ajustado
-com base na documentação das distribuições, mas precisa ser executado
-em ambas antes de encerrar a entrega.
+Em 05/10/2026, o roteiro foi executado no Debian 13 com Python 3.13 e
+PLY 3.11, clonando a branch main. A instalação terminou sem erros, o
+`pip check` não apontou problemas e `exemplo_professor.elg` gerou 75
+tokens, 1 erro e a tabela de símbolos com 7 entradas. O Ubuntu não foi
+testado.
 
 ## Decisões da Etapa 1
 

@@ -1,0 +1,31 @@
+* Teste 4: Validador de conta bancaria e saldo
+* Palavras reservadas: elgio, DECIMAL, _Z_, _NEG_, diferente, se, entao, senao, inicio, fim
+* Operadores: =, ., (, ), $
+
+DECIMAL $VerificaConta (DECIMAL Saldo) .
+inicio .
+    DECIMAL Status .
+    
+    se Saldo diferente _Z_ .
+    entao .
+    inicio .
+        Status = 1 .
+    fim .
+    senao .
+    inicio .
+        Status = _Z_ .
+    fim .
+    
+    elgio = Status .
+fim .
+
+inicio .
+    DECIMAL SaldoAtual .
+    DECIMAL Devedor .
+    DECIMAL Retorno .
+
+    SaldoAtual = 50 .
+    Devedor = _NEG_ SaldoAtual .
+
+    Retorno = $VerificaConta (Devedor) .
+fim .
