@@ -151,10 +151,10 @@ e PLY 3.11, em ambiente virtual novo. O exemplo mínimo gerou 11 tokens,
 zero erros e código de saída 0. Os exemplos do repositório produziram
 os erros esperados.
 
-A execução em Debian 13 e Ubuntu está pendente. O ambiente utilizado
-para elaborar este guia não possui Linux/WSL instalado. O roteiro Linux
-foi conferido com a documentação oficial e precisa ser executado nas
-duas distribuições para concluir a validação.
+Em 05/10/2026, o roteiro foi executado no Debian 13 com Python 3.13 e
+PLY 3.11, clonando a branch main. A instalação terminou sem erros, o
+`pip check` não apontou problemas e `exemplo_professor.elg` gerou 75
+tokens e 1 erro. O Ubuntu não foi testado.
 
 Referências:
 
