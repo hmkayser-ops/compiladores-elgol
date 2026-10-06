@@ -1,0 +1,35 @@
+* Teste 3: Calculo de fatorial e iteracoes de contagem
+* Palavras reservadas: elgio, DECIMAL, enquanto, para, igual, maior, migual, inicio, fim, x
+* Operadores: =, -, +, ., (, ), $
+
+DECIMAL $Fatorial (DECIMAL Valor) .
+inicio .
+    DECIMAL Total .
+    Total = 1 .
+
+    enquanto Valor Migual 1 .
+    inicio .
+        Total = Total x Valor .
+        Valor = Valor - 1 .
+    fim .
+    elgio = Total .
+fim .
+
+inicio .
+    DECIMAL Numero .
+    DECIMAL Resultado .
+    DECIMAL Passo .
+
+    Numero = 5 .
+    Resultado = $Fatorial (Numero) .
+    Passo = 1 .
+
+    para Passo migual 10 .
+    inicio .
+        se Passo maior 5 .
+        entao .
+        inicio .
+            Resultado = Resultado + 1 .
+        fim .
+    fim .
+fim .
