@@ -20,7 +20,7 @@ Se `py` não estiver disponível, use `python` no lugar de `py -3`.
 Em uma pasta onde seu usuário possa criar arquivos, execute:
 
 ```powershell
-git clone --branch andreberger --single-branch https://github.com/hmkayser-ops/compiladores-elgol.git
+git clone https://github.com/hmkayser-ops/compiladores-elgol.git
 cd compiladores-elgol
 cd compiladores-elgol
 py -3 -m venv .venv
@@ -49,7 +49,7 @@ os comandos `apt` acima sem `sudo` e use `exit` para voltar ao usuário
 normal. Clone o projeto e crie o ambiente virtual como usuário normal:
 
 ```bash
-git clone --branch andreberger --single-branch https://github.com/hmkayser-ops/compiladores-elgol.git
+git clone https://github.com/hmkayser-ops/compiladores-elgol.git
 cd compiladores-elgol/compiladores-elgol
 python3 --version
 python3 -m venv .venv
@@ -61,8 +61,8 @@ Use `python3` para acompanhar a versão padrão da distribuição. Crie
 uma `.venv` para cada sistema; a pasta criada no Windows não serve no Linux.
 
 Se o repositório já estiver clonado, entre na raiz do clone e execute
-`git fetch origin andreberger`, `git switch andreberger` e
-`cd compiladores-elgol`, antes dos comandos de criação do ambiente.
+`git pull` e `cd compiladores-elgol`, antes dos comandos de criação do
+ambiente.
 
 ## 3. Confirmar uma execução sem erros
 
