@@ -7,7 +7,7 @@ inicio .
     DECIMAL Total .
     Total = 1 .
 
-    enquanto Valor Migual 1 .
+    enquanto Valor migual 1 .
     inicio .
         Total = Total x Valor .
         Valor = Valor - 1 .
