@@ -17,7 +17,7 @@ Ferramenta escolhida pelo grupo: PLY (Python Lex-Yacc).
 ```
 elgol/    Etapa 1: analisador léxico da linguagem Elgol
 tr4-c/    TR4: analisador léxico e sintático para um subconjunto de C
-docs/     artigo (PDF e DOCX)
+docs/     artigo da Etapa 1 e conferência das regras
 ```
 
 ## Como rodar
@@ -214,7 +214,7 @@ testado.
 
 ## Decisões da Etapa 1
 
-Pontos que o enunciado deixou em aberto e o que o grupo decidiu (detalhes na Seção 7.4 do artigo):
+Pontos que o enunciado deixou em aberto e o que o grupo decidiu (detalhes na Seção 3.2 do artigo da Etapa 1):
 
 | Ponto | Decisão |
 |---|---|
