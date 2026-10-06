@@ -1,0 +1,34 @@
+* Teste 1: Sistema de aprovacao por nota minima
+* Palavras reservadas: elgio, DECIMAL, _Z_, se, entao, senao, MIgual, inicio, fim
+* Operadores: =, +, /, ., ,, (, ), $
+* Categoria: Identificador curto (menos de 4 caracteres)
+
+DECIMAL $Media (DECIMAL NotaUm, DECIMAL NotaDois) .
+inicio .
+    DECIMAL Soma .
+    Soma = NotaUm + NotaDois .
+    elgio = Soma / 2 .
+fim .
+
+inicio .
+    DECIMAL NotaUm .
+    DECIMAL NotaDois .
+    DECIMAL Not .   * ERRO ESPERADO: 'Not' tem 3 caracteres, minimo exigido e 4
+    DECIMAL Meta .
+
+    NotaUm = 5 .
+    NotaDois = 7 .
+    Meta = 6 .
+
+    Not = $Media (NotaUm, NotaDois) .
+
+    se Not MIgual Meta .
+    entao .
+    inicio .
+        Not = 1 .
+    fim .
+    senao .
+    inicio .
+        Not = _Z_ .
+    fim .
+fim .
