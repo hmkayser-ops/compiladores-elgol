@@ -1,0 +1,7 @@
+ply==3.11
+
+
+inicio .
+  DECIMAL Teste .
+  Teste = _Z_ .
+fim .
