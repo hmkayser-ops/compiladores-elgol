@@ -10,30 +10,28 @@ Uso:  python lexico_elgol.py arquivo.elg
 
 import sys
 import re
-import string
 import ply.lex as lex
+from ply.lex import TOKEN
 
 # ===============================================================
-# Conjuntos de caracteres
+# Definicoes regulares
 #
-# So ASCII. Letra acentuada nao e aceita em identificador, e cai
-# como caractere ilegal. O enunciado diz "so podem ser letras" sem
-# definir o alfabeto; a decisao esta documentada no artigo.
+# Cada token é descrito por uma expressão regular. Só ASCII: letra
+# acentuada não é aceita em identificador, e cai como caractere
+# ilegal. O enunciado diz "só podem ser letras" sem definir o
+# alfabeto; a decisão está documentada no artigo.
 # ===============================================================
-MAIUSCULAS  = set(string.ascii_uppercase)
-MINUSCULAS  = set(string.ascii_lowercase)
-LETRAS      = MAIUSCULAS | MINUSCULAS
-VOGAIS_MAI  = set('AEIOU')
-CONSOANTES  = MAIUSCULAS - VOGAIS_MAI      # Y conta como consoante
-DIGITOS     = set(string.digits)
-
-CONS_RE = ''.join(sorted(CONSOANTES))
+CONSOANTE = r'[B-DF-HJ-NP-TV-Z]'       # maiúscula sem vogal (Y conta)
 
 # Regra formal do identificador Elgol:
 #   consoante maiuscula + 2 ou mais letras + letra minuscula
 #   (o minimo de 4 caracteres ja sai dessa contagem)
-RE_IDENT  = re.compile(r'[' + CONS_RE + r'][A-Za-z]{2,}[a-z]')
-RE_NUMERO = re.compile(r'[1-9][0-9]*')
+IDENT = CONSOANTE + r'[A-Za-z]{2,}[a-z]'
+NUM = r'[1-9][0-9]*'
+
+# Fim do lexema: o próximo caractere não pode continuar a palavra.
+# Sem isso, 'Teste39' casaria 'Teste' e deixaria '39' para trás.
+FIM = r'(?![A-Za-z0-9_])'
 
 # ===============================================================
 # Palavras reservadas
@@ -95,28 +93,28 @@ def reporta(t, motivos):
 
 
 def critica_identificador(lexema):
-    """Devolve a lista de regras violadas. Lista vazia = identificador ok."""
+    """Devolve a lista de regras violadas. Lista vazia = identificador ok.
+    Quem decide se aceita é IDENT; aqui só se explica o motivo."""
     motivos = []
     if not lexema:
         return ['nome vazio']
 
-    if not set(lexema) <= LETRAS:
-        invalidos = sorted(set(lexema) - LETRAS)
+    invalidos = sorted(set(re.findall(r'[^A-Za-z]', lexema)))
+    if invalidos:
         motivos.append("so pode conter letras (encontrado: %s)"
                        % ' '.join(repr(c) for c in invalidos))
 
-    primeiro = lexema[0]
-    if primeiro not in MAIUSCULAS:
+    if not re.match(r'[A-Z]', lexema):
         motivos.append("deve comecar com letra maiuscula")
-    elif primeiro in VOGAIS_MAI:
-        motivos.append("deve comecar com consoante, e '%s' e vogal" % primeiro)
+    elif re.match(r'[AEIOU]', lexema):
+        motivos.append("deve comecar com consoante, e '%s' e vogal"
+                       % lexema[0])
 
     if len(lexema) < 4:
         motivos.append("precisa de no minimo 4 caracteres (tem %d)"
                        % len(lexema))
 
-    ultimo = lexema[-1]
-    if ultimo not in MINUSCULAS:
+    if not re.search(r'[a-z]\Z', lexema):
         motivos.append("deve terminar com letra minuscula")
 
     return motivos
@@ -124,63 +122,66 @@ def critica_identificador(lexema):
 
 def critica_numero(lexema):
     motivos = []
-    if not set(lexema) <= DIGITOS:
-        invalidos = sorted(set(lexema) - DIGITOS)
+    invalidos = sorted(set(re.findall(r'[^0-9]', lexema)))
+    if invalidos:
         motivos.append("numero so pode conter digitos (encontrado: %s)"
                        % ' '.join(repr(c) for c in invalidos))
-    if lexema[0] == '0':
+    if re.match(r'0', lexema):
         motivos.append("numero nao pode comecar com 0 "
                        "(use o operador _Z_ para representar zero)")
     return motivos
 
 
 # ===============================================================
-# Regras com funcao, testadas na ordem em que aparecem abaixo
+# Regras com função, testadas na ordem em que aparecem abaixo.
+# Cada token tem uma regra válida, que só casa palavras válidas, e
+# logo depois uma regra de erro, que pega a palavra inteira e usa
+# Python só para explicar o motivo.
 # ===============================================================
 
-def t_ignore_COMENTARIO(t):
-    r'\*[^\n]*'
-    # O * inicia comentario ate o fim da linha. Nao existe operador *
-    # em Elgol (a multiplicacao e o x), entao nao ha ambiguidade.
-    pass
-
-
+@TOKEN(r'\$' + IDENT + FIM)
 def t_FUNCAO(t):
-    r'\$[A-Za-z0-9_]*'
-    nome = t.value[1:]
-    motivos = critica_identificador(nome)
-    if motivos:
-        reporta(t, ["nome de funcao invalido:"] + motivos)
-        return None
     return t
 
 
+def t_ERRO_FUNCAO(t):
+    r'\$[A-Za-z0-9_]*'
+    reporta(t, ["nome de funcao invalido:"]
+            + critica_identificador(t.value[1:]))
+
+
+@TOKEN(NUM + FIM)
 def t_NUMERO(t):
-    # O padrao e proposital: engole letras e underscore grudados no
-    # numero para que '034' e '12abc' saiam como UM erro, e nao como
-    # um erro seguido de um numero valido.
-    r'[0-9][A-Za-z0-9_]*'
-    motivos = critica_numero(t.value)
-    if motivos:
-        reporta(t, motivos)
-        return None
     t.value = int(t.value)
     return t
 
 
+def t_ERRO_NUMERO(t):
+    r'[0-9][A-Za-z0-9_]*'
+    # O padrao e proposital: engole letras e underscore grudados no
+    # numero para que '034' e '12abc' saiam como UM erro, e nao como
+    # um erro seguido de um numero valido.
+    reporta(t, critica_numero(t.value))
+
+
+# Fica antes de t_ID: 'MIgual' casa o padrão de identificador.
+@TOKEN(r'(?:' + '|'.join(map(re.escape, reservadas)) + r')' + FIM)
+def t_RESERVADA(t):
+    t.type = reservadas[t.value]
+    return t
+
+
+@TOKEN(IDENT + FIM)
 def t_ID(t):
+    return t
+
+
+def t_ERRO_ID(t):
+    r'[A-Za-z_][A-Za-z0-9_]*'
     # Mesma ideia: o padrao generico de palavra pega digito e
     # underscore para que 'Teste39' e 'Tes_Te' sejam um token so.
-    r'[A-Za-z_][A-Za-z0-9_]*'
-    if t.value in reservadas:
-        t.type = reservadas[t.value]
-        return t
-    motivos = critica_identificador(t.value)
-    if motivos:
-        reporta(t, ["nao e um identificador valido:"] + motivos)
-        return None
-    t.type = 'ID'
-    return t
+    reporta(t, ["nao e um identificador valido:"]
+            + critica_identificador(t.value))
 
 
 def t_ignore_NOVALINHA(t):
@@ -191,6 +192,10 @@ def t_ignore_NOVALINHA(t):
 # ===============================================================
 # Regras simples
 # ===============================================================
+# O * inicia comentario ate o fim da linha. Nao existe operador *
+# em Elgol (a multiplicacao e o x), entao nao ha ambiguidade.
+# O prefixo ignore_ faz o PLY descartar o lexema.
+t_ignore_COMENTARIO = r'\*[^\n]*'
 t_ATRIB     = r'='
 t_MAIS      = r'\+'
 t_MENOS     = r'-'

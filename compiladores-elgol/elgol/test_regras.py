@@ -85,6 +85,17 @@ confere("* comenta ate o fim da linha", "Lixo . * Teste = 3",
 confere("comentario nao invade a linha seguinte", "* nada\nLixo .",
         ['ID', 'PONTO'], 0)
 
+print("\n== Casos de fronteira ==")
+invalido("12abc: letras grudadas no numero viram um erro so", "12abc")
+invalido("3x4: sem espaco, vira um erro so", "3x4")
+invalido("fimx: reservada colada em letra nao e reservada", "fimx")
+invalido("x2: x colado em digito nao e a multiplicacao", "x2")
+invalido("_Z_1: reservada colada em digito", "_Z_1")
+invalido("SE: palavra reservada e sensivel a caixa", "SE")
+invalido("$ sozinho: nome de funcao vazio", "$")
+confere("Teste$Soma: ID e FUNCAO grudados", "Teste$Soma", ['ID', 'FUNCAO'], 0)
+confere("Testé: o acento para o ID e vira erro", "Testé", ['ID'], 1)
+
 print("\n== Exemplo do professor ==")
 with open('exemplo_professor.elg', encoding='utf-8') as f:
     tipos, n = tokeniza(f.read())
