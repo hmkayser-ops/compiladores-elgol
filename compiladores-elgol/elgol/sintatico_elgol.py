@@ -20,7 +20,7 @@ propria secao. Nao edite as funcoes do esqueleto: para ligar uma regra
 nova a gramatica, crie outra funcao com outra alternativa para o mesmo
 nao terminal (o PLY junta as alternativas). Exemplo:
 
-    def p_comando_atribuicao(p):
+    def p_comando_exemplo(p):
         '''comando : atribuicao'''
 """
 
@@ -149,6 +149,51 @@ def p_valor(p):
 #   A parte das funcoes vai precisar de uma expressao SEM chamada de
 #   funcao, para o elgio. Deixe as duas prontas.
 # ---------------------------------------------------------------------
+
+
+def p_comando_atribuicao(p):
+    '''comando : atribuicao'''
+
+
+def p_atribuicao(p):
+    '''atribuicao : ID ATRIB expressao PONTO'''
+
+
+def p_comando_negativo(p):
+    '''comando : negativo'''
+
+
+def p_negativo(p):
+    '''negativo : NEG ID PONTO'''
+
+
+def p_expressao(p):
+    '''expressao : operando
+                 | expressao operador_aritmetico operando'''
+    # Sem precedência: a recursão à esquerda agrupa da esquerda para a direita.
+
+
+def p_operando(p):
+    '''operando : valor
+                | chamada'''
+
+
+def p_operador_aritmetico(p):
+    '''operador_aritmetico : MAIS
+                           | MENOS
+                           | DIVIDE
+                           | VEZES
+                           | EXP
+                           | RESTO'''
+
+
+def p_chamada(p):
+    '''chamada : FUNCAO ABRE_PAR lista_argumentos FECHA_PAR'''
+
+
+def p_lista_argumentos(p):
+    '''lista_argumentos : valor
+                        | lista_argumentos VIRGULA valor'''
 
 
 # ---------------------------------------------------------------------
