@@ -60,9 +60,11 @@ ordem, erros = reducoes(PROGRAMA)
 assert erros == [], erros
 assert ordem == ESPERADO, "\n" + "\n".join(ordem)
 
-# Recria o parser guardando os avisos: conflito de gramática aparece como 'conflict'.
+# Recria o parser guardando os avisos. Conflito só é contado com debug=True;
+# o debuglog em memória impede a gravação do parser.out.
 avisos = io.StringIO()
-yacc.yacc(module=s, write_tables=False, debug=False, errorlog=yacc.PlyLogger(avisos))
+yacc.yacc(module=s, write_tables=False, debug=True, debuglog=yacc.PlyLogger(io.StringIO()),
+          errorlog=yacc.PlyLogger(avisos))
 assert 'conflict' not in avisos.getvalue(), avisos.getvalue()
 assert not hasattr(s, 'precedence'), "a gramática não deve usar a tabela precedence"
 print("ok")
