@@ -1,0 +1,4 @@
+* Esqueleto: arquivo termina sem fechar o bloco
+inicio .
+  DECIMAL Lixo .
+* sintatico: 3

@@ -1,0 +1,11 @@
+* Esqueleto: erros de estrutura que o esqueleto ja pega
+inicio * faltou o ponto
+  DECIMAL Lixo .
+  DECIMAL Teste * faltou o ponto
+  DECIMAL Vari . DECIMAL Coisa . * dois comandos na mesma linha
+  DECIMAL Variavel, Lixo . * virgula nao pode na declaracao
+  DECIMAL . * faltou o identificador
+  entao . * palavra solta fora do lugar
+fim .
+fim . * fim sobrando
+* sintatico: 2, 4, 5, 6, 7, 8, 10

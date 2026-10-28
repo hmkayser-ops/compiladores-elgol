@@ -15,7 +15,7 @@ Ferramenta escolhida pelo grupo: PLY (Python Lex-Yacc).
 ## Estrutura
 
 ```
-elgol/    Etapa 1: analisador léxico da linguagem Elgol
+elgol/    analisador léxico (Etapa 1) e sintático (Etapa 2) do Elgol
 tr4-c/    TR4: analisador léxico e sintático para um subconjunto de C
 docs/     artigo da Etapa 1 e conferência das regras
 ```
@@ -211,6 +211,43 @@ PLY 3.11, clonando a branch main. A instalação terminou sem erros, o
 `pip check` não apontou problemas e `exemplo_professor.elg` gerou 75
 tokens, 1 erro e a tabela de símbolos com 7 entradas. O Ubuntu não foi
 testado.
+
+## Etapa 2: analisador sintático
+
+O analisador sintático fica em `elgol/sintatico_elgol.py` e usa os tokens
+do léxico. Ele lista as linhas com erro sintático, que é o que o enunciado
+pede, e sai com código 1 quando encontra algum erro, léxico ou sintático.
+
+```powershell
+.\.venv\Scripts\python.exe elgol\sintatico_elgol.py elgol\exemplo_professor.elg
+.\.venv\Scripts\python.exe elgol\test_sintatico.py
+```
+
+```bash
+./.venv/bin/python elgol/sintatico_elgol.py elgol/exemplo_professor.elg
+./.venv/bin/python elgol/test_sintatico.py
+```
+
+### Testes do sintático
+
+Os testes ficam em `elgol/testes_sintaticos/`. Cada arquivo traz o próprio
+gabarito em um comentário, de preferência no fim do arquivo para não mudar a
+numeração das linhas:
+
+```text
+* sintatico: 3, 10
+* lexico: 2
+```
+
+`sintatico` são as linhas que devem ter erro (ou `nenhum`). `lexico` é a
+quantidade de erros léxicos e pode ficar de fora quando for zero. O
+`test_sintatico.py` roda todos os arquivos da pasta e compara com o gabarito.
+
+### Como cada parte entra na gramática
+
+O `sintatico_elgol.py` tem uma seção marcada para cada parte (expressões,
+funções e comandos de controle). Cada parte só acrescenta funções na própria
+seção, sem editar as do esqueleto, para não dar conflito no merge.
 
 ## Decisões da Etapa 1
 

@@ -1,0 +1,7 @@
+* Esqueleto: so blocos e declaracoes, sem erro
+inicio .
+  DECIMAL Lixo .
+
+  DECIMAL Teste . * comentario depois do ponto
+fim .
+* sintatico: nenhum

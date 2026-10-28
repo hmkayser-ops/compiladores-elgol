@@ -1,0 +1,7 @@
+* Esqueleto: erro lexico que derruba o comando
+inicio .
+  DECIMAL Vim .
+  DECIMAL Teste .
+fim .
+* sintatico: 3
+* lexico: 1
