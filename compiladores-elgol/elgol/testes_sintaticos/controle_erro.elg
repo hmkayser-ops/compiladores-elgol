@@ -1,0 +1,9 @@
+* Parte 4 - Andre: enquanto exige comparacao, nao multiplicacao.
+inicio .
+  DECIMAL Teste .
+  enquanto Teste x 30 .
+  inicio .
+  fim .
+fim .
+* sintatico: 4
+* lexico: 0

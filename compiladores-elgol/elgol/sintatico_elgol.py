@@ -183,6 +183,52 @@ def p_valor(p):
 #   'fim .' do bloco do entao, e nao a linha seguinte. Nao precisa tratar.
 # ---------------------------------------------------------------------
 
+def p_comando_controle(p):
+    '''comando : enquanto
+               | para
+               | se'''
+
+
+def p_expressao_logica(p):
+    '''expressao_logica : valor operador_relacional valor'''
+    # Apenas dois operandos simples: nao permite expressoes matematicas,
+    # chamadas de funcao nem encadeamento de comparacoes.
+
+
+def p_operador_relacional(p):
+    '''operador_relacional : MAIOR
+                           | MENOR
+                           | IGUAL
+                           | DIFERENTE
+                           | MIGUAL
+                           | MAIGUAL'''
+    # O lexico decide a grafia das reservadas; MAIGUAL representa MIgual
+    # (e tambem Migual quando a correcao do Integrante 5 for integrada).
+
+
+def p_enquanto(p):
+    '''enquanto : ENQUANTO expressao_logica PONTO bloco'''
+
+
+def p_para(p):
+    '''para : PARA ID valor PONTO bloco'''
+    # O contador e sempre ID; o limite aceita ID, NUMERO ou ZERO.
+
+
+def p_se(p):
+    '''se : SE expressao_logica PONTO ENTAO PONTO bloco SENAO PONTO bloco'''
+    # Os dois blocos podem ser vazios, mas o senao e obrigatorio.
+
+
+def p_controle_cabecalho_erro(p):
+    '''enquanto : ENQUANTO error PONTO bloco
+       para : PARA error PONTO bloco
+       se : SE error PONTO ENTAO PONTO bloco SENAO PONTO bloco'''
+    # Preserva o bloco apos um cabecalho invalido. A recuperacao generica
+    # de comando descartaria so ate o ponto, causando erros nos inicio/fim
+    # corretos desse bloco. O p_error ja registrou a linha do cabecalho.
+    p.parser.errok()
+
 
 # =====================================================================
 # 4. ERRO, CONSTRUCAO DO PARSER E PROGRAMA PRINCIPAL

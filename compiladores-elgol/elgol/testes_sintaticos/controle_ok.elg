@@ -1,0 +1,39 @@
+* Parte 4 - Andre: controles com blocos vazios e aninhados.
+inicio .
+  DECIMAL Teste .
+  DECIMAL Limite .
+  enquanto Teste maior _Z_ .
+  inicio .
+    para Contar Limite .
+    inicio .
+      se Teste diferente Limite .
+      entao .
+      inicio .
+        DECIMAL Temp .
+      fim .
+      senao .
+      inicio .
+      fim .
+    fim .
+  fim .
+  para Contar 100 .
+  inicio .
+  fim .
+  para Contar _Z_ .
+  inicio .
+  fim .
+  enquanto 1 menor Teste .
+  inicio .
+  fim .
+  enquanto _Z_ igual _Z_ .
+  inicio .
+  fim .
+  enquanto Teste migual 30 .
+  inicio .
+  fim .
+  enquanto Teste MIgual Limite .
+  inicio .
+  fim .
+fim .
+* sintatico: nenhum
+* lexico: 0
