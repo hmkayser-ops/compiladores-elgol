@@ -17,8 +17,8 @@ from ply.lex import TOKEN
 # Definicoes regulares
 #
 # Cada token é descrito por uma expressão regular. Só ASCII: letra
-# acentuada não é aceita em identificador, e cai como caractere
-# ilegal. O enunciado diz "só podem ser letras" sem definir o
+# acentuada não é aceita em identificador; a palavra inteira que a
+# contém vira um único erro léxico. O enunciado diz "só podem ser letras" sem definir o
 # alfabeto; a decisão está documentada no artigo.
 # ===============================================================
 CONSOANTE = r'[B-DF-HJ-NP-TV-Z]'       # maiúscula sem vogal (Y conta)
@@ -31,7 +31,8 @@ NUM = r'[1-9][0-9]*'
 
 # Fim do lexema: o próximo caractere não pode continuar a palavra.
 # Sem isso, 'Teste39' casaria 'Teste' e deixaria '39' para trás.
-FIM = r'(?![A-Za-z0-9_])'
+# \w (Unicode) inclui letra acentuada: assim 'Variável' não casa 'Vari'.
+FIM = r'(?!\w)'
 
 # ===============================================================
 # Palavras reservadas
@@ -59,7 +60,8 @@ reservadas = {
     'igual':     'IGUAL',
     'diferente': 'DIFERENTE',
     'migual':    'MIGUAL',
-    'MIgual':    'MAIGUAL',
+    'MIgual':    'MAIGUAL',   # grafia do enunciado da Etapa 1
+    'Migual':    'MAIGUAL',   # grafia do enunciado da Etapa 2
     'x':         'VEZES',      # multiplicacao: e uma letra, entra aqui
 }
 
@@ -145,7 +147,7 @@ def t_FUNCAO(t):
 
 
 def t_ERRO_FUNCAO(t):
-    r'\$[A-Za-z0-9_]*'
+    r'\$\w*'
     reporta(t, ["nome de funcao invalido:"]
             + critica_identificador(t.value[1:]))
 
@@ -157,7 +159,7 @@ def t_NUMERO(t):
 
 
 def t_ERRO_NUMERO(t):
-    r'[0-9][A-Za-z0-9_]*'
+    r'[0-9]\w*'
     # O padrao e proposital: engole letras e underscore grudados no
     # numero para que '034' e '12abc' saiam como UM erro, e nao como
     # um erro seguido de um numero valido.
@@ -177,7 +179,9 @@ def t_ID(t):
 
 
 def t_ERRO_ID(t):
-    r'[A-Za-z_][A-Za-z0-9_]*'
+    r'[^\W\d]\w*'
+    # [^\W\d] = letra (inclusive acentuada) ou '_'. 'Variável' sai
+    # como UM erro, e não como 'Vari' válido seguido de lixo.
     # Mesma ideia: o padrao generico de palavra pega digito e
     # underscore para que 'Teste39' e 'Tes_Te' sejam um token so.
     reporta(t, ["nao e um identificador valido:"]
@@ -205,7 +209,11 @@ t_VIRGULA   = r','
 t_ABRE_PAR  = r'\('
 t_FECHA_PAR = r'\)'
 
-t_ignore = ' \t\r'
+# Além do espaço comum, ignora os caracteres invisíveis que vêm junto
+# quando se copia código de PDF: espaço não separável (U+00A0), hífen
+# suave (U+00AD), espaços de largura zero (U+200B a U+200D), U+2060 e
+# BOM (U+FEFF).
+t_ignore = ' \t\r ­​‌‍⁠﻿'
 
 
 def t_error(t):

@@ -1,0 +1,41 @@
+* erros sintáticos
+DECIMAL $Fazalgo(DECIMAL Fazum, DECIMAL). * falta id depois do numero
+inicio                                   * faltou .
+   DECIMAL Lixo.
+
+   Lixo = Fazum - Fazdois + _Z_ x. * operador x precisa de 2 operandos
+   elgio = Lixo + $Soma(20,30).     * elgio não permite ter função
+fim.
+
+inicio.
+  DECIMAL Variavel, Lixo.   * Não pode ter , aqui
+  DECIMAL Teste.
+
+  Variavel = _Z_.
+
+  Teste = 45 x $Fazalgo (50, Variavel).
+
+  se Teste maior _Z_.
+  entao.
+  inicio.
+    Variavel = Teste igual Lixo. * Somente expressoes matematicas
+  fim.
+  * erro Faltou senao
+
+  Variavel = Variavel + Nova + 3 - 5 x 2 / 2 + Teste.
+  * semântico: Nova não foi declarada. Não implementar
+fim.
+
+* ---------------------------------------------------------------
+* Exemplo 3 do enunciado da Etapa 2 (pagina 6). Sem erro lexico.
+*   2: parametro sem identificador ("numero" no comentario = DECIMAL)
+*   3: inicio sem ponto
+*   6: x sem o segundo operando
+*   7: funcao na expressao do elgio
+*  11: virgula na declaracao
+*  21: operador relacional em expressao matematica
+*  25: faltou o senao. O professor comenta na linha 23, mas o
+*      parser so percebe no primeiro token depois do fim (linha 25)
+*  Nova (linha 25) e erro semantico: nao entra no gabarito.
+* sintatico: 2, 3, 6, 7, 11, 21, 25
+* lexico: 0

@@ -1,0 +1,45 @@
+* Linguagem Elgol
+* autor Elgio Schlemer
+* Exemplo 5
+* Muitos erros. Descubra-os
+DECIMAL Fazalgo (DECIMAL Fazum, DECIMAL Fazdois, Numx).
+   DECIMAL Lixo.
+   DECIMAL Lixox.
+
+   Lixo = Fazum x Fazdois + _Z_.
+   Fazum = Lixox - Fazdois + 34 - _Z_ * 15 / 3 x 4 - 87 + Fazum.
+   elgio = Fazum + Lixox.
+fim.
+
+inicio.
+  DECIMAL Variavel.
+  DECIMAL Teste.
+  DECIMAL Varx.
+  DECIMAL _Teste.
+
+
+  enquanto Varx diferente de Variavel.
+  entao.
+      Varx = Varx x $Fazalgo(Variavel, _Z_).
+      Teste = 45.
+  fim.
+
+  Variavel = Variavel + x 3 - 5 x 2 / 2 + Teste . * 45 +
+fim.
+
+* ---------------------------------------------------------------
+* Exemplo 5 do enunciado da Etapa 2 (pagina 8). O enunciado nao
+* marca os erros; esta e a nossa leitura:
+*   5: Fazalgo sem $ (vira ID) e parametro Numx sem DECIMAL
+*   6: faltou o "inicio ." da funcao
+*  10: o * abre comentario, entao a linha perde o resto e o ponto
+*  18: _Teste e erro lexico; sobra "DECIMAL ." sem identificador
+*  21: "de" e erro lexico, mas sem ele o enquanto fica valido,
+*      entao a linha 21 NAO entra como erro sintatico
+*  22: enquanto pede "inicio .", veio "entao ."
+*  27: dois operadores seguidos (+ x)
+* DUVIDA: 7, 9, 11 e 12 ficam fora de qualquer bloco por causa do
+* inicio que falta. Se o parser marcar essas linhas depois de se
+* recuperar do erro da 6, o gabarito precisa ser revisto.
+* sintatico: 5, 6, 10, 18, 22, 27
+* lexico: 2

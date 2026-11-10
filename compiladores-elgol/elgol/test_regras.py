@@ -94,7 +94,11 @@ invalido("_Z_1: reservada colada em digito", "_Z_1")
 invalido("SE: palavra reservada e sensivel a caixa", "SE")
 invalido("$ sozinho: nome de funcao vazio", "$")
 confere("Teste$Soma: ID e FUNCAO grudados", "Teste$Soma", ['ID', 'FUNCAO'], 0)
-confere("Testé: o acento para o ID e vira erro", "Testé", ['ID'], 1)
+confere("Testé: palavra com acento e UM erro so", "Testé", [], 1)
+confere("Variável: nao vira 'Vari' valido", "DECIMAL Variável", ['DECIMAL'], 1)
+confere("Migual e MIgual: as duas grafias", "Migual MIgual", ['MAIGUAL', 'MAIGUAL'], 0)
+confere("caracteres invisiveis de PDF ignorados",
+        " ﻿​DECIMAL Lixo­ .", ['DECIMAL', 'ID', 'PONTO'], 0)
 
 print("\n== Exemplo do professor ==")
 with open('exemplo_professor.elg', encoding='utf-8') as f:

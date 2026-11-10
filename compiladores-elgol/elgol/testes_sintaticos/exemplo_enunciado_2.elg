@@ -1,0 +1,22 @@
+* com erros lexicos
+DECIMAL $Fazalgo2 (DECIMAL Fazum, DECIMAL Faz2) .
+inicio.
+   DECIMAL Variável .
+   Fazum = 0;
+   Fazum = 45 vezes 20 .
+fim.
+
+* ---------------------------------------------------------------
+* Exemplo 2 do enunciado da Etapa 2 (pagina 5).
+* Erros lexicos (6), nas linhas 2, 4, 5 e 6:
+*   2: $Fazalgo2 e Faz2 (tem digito)
+*   4: Variável (acento)
+*   5: 0 (nao existe numero 0) e ; (fora do alfabeto)
+*   6: vezes (nao e token)
+* Erros sintaticos:
+*   5: falta o ponto. O enunciado chama de "linha 4" porque nao
+*      conta a linha de comentario; no arquivo e a linha 5.
+*   2, 4, 6: consequencia dos erros lexicos (o token some e o
+*      comando fica incompleto), mesma convencao de esqueleto_lexico.elg
+* sintatico: 2, 4, 5, 6
+* lexico: 6
