@@ -20,7 +20,7 @@ propria secao. Nao edite as funcoes do esqueleto: para ligar uma regra
 nova a gramatica, crie outra funcao com outra alternativa para o mesmo
 nao terminal (o PLY junta as alternativas). Exemplo:
 
-    def p_comando_atribuicao(p):
+    def p_comando_exemplo(p):
         '''comando : atribuicao'''
 """
 
@@ -151,6 +151,51 @@ def p_valor(p):
 # ---------------------------------------------------------------------
 
 
+def p_comando_atribuicao(p):
+    '''comando : atribuicao'''
+
+
+def p_atribuicao(p):
+    '''atribuicao : ID ATRIB expressao PONTO'''
+
+
+def p_comando_negativo(p):
+    '''comando : negativo'''
+
+
+def p_negativo(p):
+    '''negativo : NEG ID PONTO'''
+
+
+def p_expressao(p):
+    '''expressao : operando
+                 | expressao operador_aritmetico operando'''
+    # Sem precedência: a recursão à esquerda agrupa da esquerda para a direita.
+
+
+def p_operando(p):
+    '''operando : valor
+                | chamada'''
+
+
+def p_operador_aritmetico(p):
+    '''operador_aritmetico : MAIS
+                           | MENOS
+                           | DIVIDE
+                           | VEZES
+                           | EXP
+                           | RESTO'''
+
+
+def p_chamada(p):
+    '''chamada : FUNCAO ABRE_PAR lista_argumentos FECHA_PAR'''
+
+
+def p_lista_argumentos(p):
+    '''lista_argumentos : valor
+                        | lista_argumentos VIRGULA valor'''
+
+
 # ---------------------------------------------------------------------
 # PARTE: FUNCOES (Integrante 3)
 #   - DECIMAL $Nome ( DECIMAL Id , DECIMAL Id ... ) .  seguido de bloco
@@ -169,6 +214,45 @@ def p_valor(p):
 #   erro sai na linha do ultimo 'fim .'.
 # ---------------------------------------------------------------------
 
+def p_programa_funcoes(p):
+    '''programa : lista_funcoes bloco'''
+
+
+def p_lista_funcoes(p):
+    '''lista_funcoes : lista_funcoes funcao
+                     | funcao'''
+
+
+def p_funcao(p):
+    '''funcao : DECIMAL FUNCAO ABRE_PAR lista_parametros FECHA_PAR PONTO bloco'''
+
+
+def p_lista_parametros(p):
+    '''lista_parametros : lista_parametros VIRGULA parametro
+                        | parametro
+                        | vazio'''
+
+
+def p_parametro(p):
+    '''parametro : DECIMAL ID'''
+
+
+def p_funcao_erro(p):
+    '''funcao : DECIMAL error PONTO bloco'''
+    p.parser.errok()
+
+
+def p_comando_retorno(p):
+    '''comando : retorno'''
+
+
+def p_retorno(p):
+    '''retorno : ELGIO ATRIB expressao_sem_funcao PONTO'''
+
+
+def p_expressao_sem_funcao(p):
+    '''expressao_sem_funcao : valor
+                            | expressao_sem_funcao operador_aritmetico valor'''
 
 # ---------------------------------------------------------------------
 # PARTE: COMANDOS DE CONTROLE (Integrante 4)

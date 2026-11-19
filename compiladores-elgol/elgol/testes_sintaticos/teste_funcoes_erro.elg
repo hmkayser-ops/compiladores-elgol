@@ -1,0 +1,11 @@
+DECIMAL $Soma ( DECIMAL Numa , DECIMAL Numb ) .
+inicio .
+    elgio = $Soma ( Numa , Numb ) .
+fim .
+
+inicio .
+    DECIMAL Total .
+    Total = $Soma ( 10 , 20 ) .
+fim .
+
+* sintatico: 3

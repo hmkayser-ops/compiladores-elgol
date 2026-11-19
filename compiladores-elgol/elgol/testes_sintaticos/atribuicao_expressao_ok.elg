@@ -1,0 +1,21 @@
+* Atribuição, expressão, chamada de função e _NEG_: programa correto
+inicio .
+  DECIMAL Lixo .
+  DECIMAL Teste .
+  DECIMAL Resultado .
+
+  Lixo = 34 .
+  Teste = _Z_.
+  Teste = 3 EXP 4 .
+  Lixo = 13 RESTO 4 .
+  Teste = 9 - 3 EXP 2 RESTO 4 .
+  Teste = 3 x 4 .
+  Teste = 9 / 3 .
+  Teste = Lixo + Teste .
+  Resultado = $Soma (Lixo, Teste) .
+  Teste = Lixo + $Soma (Lixo, _Z_) x 2 .
+  Teste = $Soma (Lixo, Teste, _Z_) .
+  Teste = $Soma (Lixo) .
+  _NEG_ Lixo .
+fim .
+* sintatico: nenhum

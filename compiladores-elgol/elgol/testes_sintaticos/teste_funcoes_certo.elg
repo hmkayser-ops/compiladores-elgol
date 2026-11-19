@@ -1,0 +1,17 @@
+DECIMAL $Soma ( DECIMAL Numa , DECIMAL Numb ) .
+inicio .
+    DECIMAL Resu .
+    Resu = Numa + Numb .
+    elgio = Resu + 1 .
+fim .
+
+inicio .
+    DECIMAL Valx .
+    DECIMAL Valy .
+    DECIMAL Total .
+    Valx = 10 .
+    Valy = 20 .
+    Total = $Soma ( Valx , Valy ) .
+fim .
+
+* sintatico: nenhum
