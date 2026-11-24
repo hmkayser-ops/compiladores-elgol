@@ -1,0 +1,73 @@
+* Casos CORRETOS tirados do texto do enunciado da Etapa 2 (paginas 1 a 4)
+DECIMAL $Soma (DECIMAL Numm, DECIMAL Dois) .
+inicio .
+   elgio = Numm + Dois .
+fim.
+
+DECIMAL $Fazalgo (DECIMAL Numm, DECIMAL Dois).
+inicio.
+   DECIMAL Temp.
+   Temp = 20 x $Soma(Numm, Dois).
+   elgio = Temp.
+fim.
+
+inicio .
+  DECIMAL Lixo .
+  DECIMAL Breca .
+  DECIMAL Bare .
+  DECIMAL Teste .
+  DECIMAL Limite .
+  DECIMAL Contar .
+
+  Lixo = _Z_ .
+  _NEG_ Breca .
+  Bare = Lixo + Breca x _Z_ - 45 / 5 .
+  Lixo = Bare EXP 3 .
+  Teste = Bare + Breca x 45 + $Soma(30,40) .
+  Teste = $Soma(Lixo, _Z_) RESTO 7 .
+
+  enquanto Teste maior _Z_.
+  inicio.
+     Teste = Teste - 1 .
+  fim.
+
+  para Contar 100 .
+  inicio .
+  fim .
+
+  Limite = 30 .
+  para Contar Limite.
+  inicio .
+  fim .
+
+  se Teste maior Lixo.
+  entao.
+  inicio.
+     Teste = 45 x Lixo.
+  fim.
+  senao.
+  inicio.
+  fim.
+
+  se Teste Migual Lixo .
+  entao .
+  inicio .
+     se 30 migual _Z_ .
+     entao .
+     inicio .
+     fim .
+     senao .
+     inicio .
+     fim .
+  fim .
+  senao .
+  inicio .
+     enquanto Lixo diferente Bare .
+     inicio .
+     fim .
+  fim .
+fim .
+
+* ---------------------------------------------------------------
+* sintatico: nenhum
+* lexico: 0

@@ -1,0 +1,59 @@
+* Casos ERRADOS tirados do texto do enunciado da Etapa 2 (paginas 1 a 4)
+DECIMAL $Fazalgo (DECIMAL Numm, DECIMAL Dois) .
+inicio .
+   elgio = 20 x $Soma(Numm, Dois) .
+fim.
+
+inicio .
+  DECIMAL Teste .
+  DECIMAL Lixo .
+  DECIMAL Bare .
+
+  $Soma = Teste + 1 .
+  Teste = $Soma($Soma(1, 2), 3) .
+  Lixo = (Bare + 3) x 2 .
+  Lixo = Bare = 3 .
+
+  enquanto Teste > 30.
+  inicio.
+  fim.
+
+  enquanto 30 x 40.
+  inicio.
+  fim.
+
+  enquanto Teste maior $Soma(20, 30).
+  inicio.
+  fim.
+
+  enquanto Teste maior _Z_ igual Lixo.
+  inicio.
+  fim.
+
+  para 100 Teste .
+  inicio .
+  fim .
+
+  se Teste maior Lixo.
+  entao Lixo.
+  inicio.
+  fim.
+  senao.
+  inicio.
+  fim.
+fim .
+
+* ---------------------------------------------------------------
+*   4: elgio com funcao na expressao (pagina 2)
+*  12: funcao como alvo da atribuicao (pagina 1)
+*  13: funcao como parametro de outra funcao (pagina 3)
+*  14: parenteses nao servem para precedencia (pagina 1)
+*  15: so um id pode receber o resultado (pagina 2)
+*  17: > e erro lexico; sem ele sobra "enquanto Teste 30." (pagina 3)
+*  21: operador matematico na expressao do enquanto (pagina 3)
+*  25: funcao como operando da expressao logica (pagina 3)
+*  29: tres operandos na expressao logica (pagina 3)
+*  33: o para comeca pelo identificador contador (pagina 3)
+*  38: entao e token solitario, so seguido de ponto (pagina 4)
+* sintatico: 4, 12, 13, 14, 15, 17, 21, 25, 29, 33, 38
+* lexico: 1
